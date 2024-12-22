@@ -15,7 +15,7 @@ const authenticateUser=async(req,res,next)=>{
 
         const verifiedUserId=jwt.verify(token,process.env.JWT_SECRET);
 
-        req.user=verifiedUserId;
+        req.user=verifiedUserId.id;
         next();
       
     }catch(error){

@@ -19,6 +19,10 @@ const userSchema=mongoose.Schema({
     OTP:{
         type:String
     },
+    isVerified:{
+        type:Boolean,
+        default:false
+    },
     RefreshToken:{
         type:String
     },

@@ -31,7 +31,7 @@ const postSchema=mongoose.Schema({
     Comments:[commentSchema],
     User:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:"Users",
+            ref:"User",
             required:true
     }
 })

@@ -28,7 +28,11 @@ const userSchema=mongoose.Schema({
     },
     Profile:{
         type:String
-    }
+    },
+    Posts:[{
+        type:mongoose.Schema.Types.ObjectId,
+        res:'Posts'
+    }]
 })
 
 const User=mongoose.model("User",userSchema)

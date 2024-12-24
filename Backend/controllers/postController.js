@@ -4,11 +4,12 @@ const uploadToCloudinary = require('../utils/cloudinary.js');
 
 const addPost = async (req, res) => {
     const userId = req.user;
-    const localPath = req.file.userPost;
+    const localPath = req.file.path;
     const description = req.body.description;
+ 
 
     if (!userId || !localPath) {
-        res.status(404)
+        return res.status(404)
             .json({
                 message: "Credentials are missing",
                 success: false
@@ -105,7 +106,7 @@ const likePost = async (req, res) => {
     }
 
     try {
-        const addLike = await Post.findOneAndUpdate({ _id: postId }, { $pust: { likes: userId } }, { new: true });
+        const addLike = await Post.findOneAndUpdate({ _id: postId }, { $push: { likes: userId } }, { new: true });
 
         if (!addLike) {
             return res.status(500)

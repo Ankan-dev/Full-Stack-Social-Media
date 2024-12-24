@@ -2,7 +2,8 @@ const User = require('../models/user-model.js');
 const { hashPassword, checkPassword } = require('../utils/hashing.js');
 const sendEmail = require('../utils/sendEmail.js');
 const jwt = require('jsonwebtoken')
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt');
+const { get } = require('mongoose');
 
 const registerUser = async (req, res) => {
     const { fullname, email, password, gender } = req.body;
@@ -155,6 +156,13 @@ const userLogin = async (req, res) => {
 
         const checkUserPassword = await checkPassword(getUser.Password,password)
 
+        if(!getUser.isVerified){
+            return res.status(401)
+                    .json({
+                        message:"User not verified",
+                        success:false
+                    })
+        }
         
 
         if (!checkUserPassword) {

@@ -2,12 +2,13 @@ const User = require('../models/user-model.js');
 const { hashPassword, checkPassword } = require('../utils/hashing.js');
 const sendEmail = require('../utils/sendEmail.js');
 const jwt = require('jsonwebtoken')
+const bcrypt=require('bcrypt')
 
 const registerUser = async (req, res) => {
     const { fullname, email, password, gender } = req.body;
 
     if (!fullname || !email || !password || !gender) {
-        return req.status(404)
+        return res.status(404)
             .json({
                 message: "Your crendentials are missing",
                 success: false
@@ -18,7 +19,7 @@ const registerUser = async (req, res) => {
         const checkIfUserExists = await User.findOne({ Email: email });
 
         if (checkIfUserExists && checkIfUserExists.length !== 0) {
-            return req.status(409)
+            return res.status(409)
                 .json({
                     message: "user already exists",
                     success: false
@@ -28,7 +29,7 @@ const registerUser = async (req, res) => {
         const newPassword = await hashPassword(password);
 
         if (!newPassword) {
-            return req.status(500)
+            return res.status(500)
                 .json({
                     message: "Internal server error in saving the password",
                     success: false
@@ -86,9 +87,9 @@ const verifyUser = async (req, res) => {
     }
 
     try {
-        const checkUser = await User.findOne({ Email: email });
+        const checkUserCode = await User.findOne({ Email: email }).select('OTP');
 
-        if (!checkUser) {
+        if (!checkUserCode) {
             return res.status(404)
                 .json({
                     message: "User not found",
@@ -96,7 +97,7 @@ const verifyUser = async (req, res) => {
                 })
         }
 
-        if (code !== checkUser.Password) {
+        if (code !== checkUserCode.OTP) {
             return res.status(402)
                 .json({
                     message: "Incorrect code",
@@ -152,7 +153,9 @@ const userLogin = async (req, res) => {
                 })
         }
 
-        const checkUserPassword = await checkPassword(getUser.Password, password);
+        const checkUserPassword = await checkPassword(getUser.Password,password)
+
+        
 
         if (!checkUserPassword) {
             return res.status(404)
@@ -162,7 +165,7 @@ const userLogin = async (req, res) => {
                 })
         }
 
-        const token = jwt({ id: getUser._id }, process.env.JWT_SECRET,);
+        const token = jwt.sign({ id: getUser._id }, process.env.JWT_SECRET,);
 
         const options = {
             httpOnly: true,
@@ -180,7 +183,7 @@ const userLogin = async (req, res) => {
         res.status(500)
             .json({
                 message: "Internal server error in user login",
-                error: error,
+                error: error.message,
                 success: false
             })
     }

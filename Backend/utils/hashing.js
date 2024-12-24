@@ -10,7 +10,7 @@ const hashPassword= async(password)=>{
 
 
 const checkPassword = async (dbPassword,clientPassword)=>{
-    const passwordStatus= await bcrypt.compare(dbPassword,clientPassword);
+    const passwordStatus= await bcrypt.compare(clientPassword,dbPassword);
     return passwordStatus;
 }
 

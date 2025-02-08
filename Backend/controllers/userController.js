@@ -8,6 +8,8 @@ const { get } = require('mongoose');
 const registerUser = async (req, res) => {
     const { fullname, email, password, gender } = req.body;
 
+    
+
     if (!fullname || !email || !password || !gender) {
         return res.status(404)
             .json({
@@ -18,6 +20,7 @@ const registerUser = async (req, res) => {
 
     try {
         const checkIfUserExists = await User.findOne({ Email: email });
+        
 
         if (checkIfUserExists && checkIfUserExists.length !== 0) {
             return res.status(409)
@@ -28,6 +31,7 @@ const registerUser = async (req, res) => {
         }
 
         const newPassword = await hashPassword(password);
+
 
         if (!newPassword) {
             return res.status(500)

@@ -1,20 +1,10 @@
 import React from "react";
 import RegisterLogin from "./components/RegisterLogin";
-import axios from 'axios';
+
 
 
 const App= ()=>{
  
-    async function getData() {
-        try {
-            let data=await axios.get("https://catfact.ninja/fact");
-            console.log(data);
-        } catch (error) {
-            console.log("Error has occured: ",error);
-        }
-    }
-
-    getData();
 
     return(
         <div>

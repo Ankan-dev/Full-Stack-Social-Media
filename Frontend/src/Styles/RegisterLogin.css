@@ -17,7 +17,7 @@
     padding-left: 10px;
     border-color:green ;
     border-style: none none solid none;
-    
+    outline: none;
 }
 
 #heading{
@@ -95,6 +95,8 @@ button:hover{
 
     margin-top:10rem;
 }
+
+
 
 @media (min-width:640px) {
     #register-form{

@@ -1,15 +1,27 @@
 import React from "react";
-import RegisterLogin from "./components/RegisterLogin";
+import RegisterLogin from "./Pages/RegisterLogin.jsx";
+import OneTimePassword from "./Pages/OneTimePassword.jsx";
+import Home from "./Pages/Home.jsx";
+import Profile from "./Pages/Profile.jsx";
+import { BrowserRouter, Routes, Route } from "react-router";
 
 
+const App = () => {
 
-const App= ()=>{
- 
 
-    return(
-        <div>
-            <RegisterLogin/>
-        </div>
+    return (
+        <>
+            <BrowserRouter>
+
+                <Routes>
+                    <Route path="/register-login" element={<RegisterLogin />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/OneTimePass" element={<OneTimePassword />} />
+                    <Route path="/Profile" element={<Profile />} />
+                </Routes>
+
+            </BrowserRouter>
+        </>
     )
 }
 

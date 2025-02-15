@@ -138,6 +138,7 @@ const verifyUser = async (req, res) => {
 
 const userLogin = async (req, res) => {
     const { email, password } = req.body;
+   
 
     if (!email || !password) {
         return res.status(404)
@@ -158,9 +159,11 @@ const userLogin = async (req, res) => {
                 })
         }
 
+     
         const checkUserPassword = await checkPassword(getUser.Password,password)
 
         if(!getUser.isVerified){
+            
             return res.status(401)
                     .json({
                         message:"User not verified",

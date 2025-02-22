@@ -1,54 +1,21 @@
-import React, { useRef } from "react";
-import "../Styles/otp.css";
+import React from 'react'
 
-const OTPVerification = () => {
-  const inputRefs = useRef([]);
-
-  const digitValidate = (event, index) => {
-    let value = event.target.value.replace(/[^0-9]/g, "");
-    event.target.value = value;
-  };
-
-  const tabChange = (index) => {
-    if (inputRefs.current[index] && inputRefs.current[index].value !== "") {
-      if (inputRefs.current[index + 1]) {
-        inputRefs.current[index + 1].focus();
-      }
-    } else if (inputRefs.current[index - 1]) {
-      inputRefs.current[index - 1].focus();
-    }
-  };
-
+const OneTimePassword = () => {
   return (
-    <div className="container">
-      <div className="row justify-content-md-center">
-        <div className="col-md-4 text-center">
-          <div className="row">
-            <div className="col-sm-12 mt-5 bgWhite">
-              <div className="title">Verify OTP</div>
-              <form className="mt-5">
-                {[0, 1, 2, 3].map((_, index) => (
-                  <input
-                    key={index}
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    className="otp"
-                    type="text"
-                    onInput={(e) => digitValidate(e, index)}
-                    onKeyUp={() => tabChange(index)}
-                    maxLength={1}
-                  />
-                ))}
-              </form>
-              <hr className="mt-4" />
-              <button className="btn btn-primary btn-block mt-4 mb-4 customBtn">
-                Verify
-              </button>
-            </div>
-          </div>
+    <div className='bg-[#72c6c6] w-[100vw] h-[100vh] flex items-center justify-center' style={{backgroundImage:'url("https://images.unsplash.com/photo-1548913344-66177da9425e?q=80&w=2946&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D%22")',backgroundSize:'cover',backgroundPosition:'center'}}>
+      <form className='w-full h-full bg-[rgba(0,0,0,0.6)] flex flex-col justify-center items-center px-3 sm:w-[80%] sm:h-[50%] lg:w-[50%] sm:rounded-2xl'>
+        <div className='w-full h-[15%] sm:h-[30%] lg:h-[40%] flex justify-center items-center  gap-3 mb-3'>
+          <input type='password' className='w-[13%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
+          <input type='password' className='w-[14.3%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
+          <input type='password' className='w-[14.3%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
+          <input type='password' className='w-[14.3%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
+          <input type='password' className='w-[14.3%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
+          <input type='password' className='w-[14.3%] h-[50%] border-2 border-[#72c6c6] bg-[rgba(0,0,0,0.6)] text-[#72c6c6] outline-none'/>
         </div>
-      </div>
+        <button className='text-[#72c6c6] border-2 border-[#72c6c6] px-5 py-1 sm:px-7 sm:py-2 sm:font-bold'>Verify Now</button>
+      </form>
     </div>
-  );
-};
+  )
+}
 
-export default OTPVerification;
+export default OneTimePassword
